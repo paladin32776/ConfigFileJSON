@@ -2,6 +2,8 @@
 #include <ArduinoJson.h>
 #include "StreamUtils.h"
 
+#ifndef CONFIGFILEJSON_H
+#define CONFIGFILEJSON_H
 
 class ConfigFileJSON
 {
@@ -10,7 +12,6 @@ class ConfigFileJSON
     char filename[32];
     // JSON storage for data
     DynamicJsonDocument doc;
-
     // Template functions to assemble JSON object from variable number of input parameters:
     template<typename Tparameter, typename Tvalue>
     void assembleJSON(Tparameter parameter, Tvalue value)
@@ -44,6 +45,8 @@ class ConfigFileJSON
     bool tget(const char* key, int* target);
     bool tget(const char* key, float* target);
     bool tget(const char* key, char* target);
+    bool tget(const char* key, long unsigned int* target);
+    bool tget(const char* key, long int* target);
 
   public:
     // Constructor; reads JSON data from SPIFFS file system to initialize:
@@ -69,3 +72,5 @@ class ConfigFileJSON
     bool remove(const char key[]);
     void dump();
 };
+
+#endif // CONFIGFILEJSON_H

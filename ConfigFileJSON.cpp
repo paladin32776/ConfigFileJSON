@@ -21,7 +21,7 @@ ConfigFileJSON::ConfigFileJSON(const char _filename[]): doc(1024)
     SPIFFS.end();
   }
   else
-    Serial.printf("SPIFFS initialization failed.\n");
+    Serial.printf("[ERROR] SPIFFS initialization failed.\n");
 }
 
 bool ConfigFileJSON::write_file()
@@ -43,7 +43,7 @@ bool ConfigFileJSON::write_file()
   }
   else
   {
-    Serial.printf("SPIFFS initialization failed.\n");
+    Serial.printf("[ERROR] SPIFFS initialization failed.\n");
     return false;
   }
   return true;
@@ -51,7 +51,7 @@ bool ConfigFileJSON::write_file()
 
 bool ConfigFileJSON::tget(const char* key, bool* target)
 {
-  Serial.printf("bool\n");
+  // Serial.printf("bool\n");
   if (!doc.containsKey(key))
     return false;
   if (!doc[key].is<bool>())
@@ -62,7 +62,7 @@ bool ConfigFileJSON::tget(const char* key, bool* target)
 
 bool ConfigFileJSON::tget(const char* key, int* target)
 {
-  Serial.printf("int\n");
+  // Serial.printf("int\n");
   if (!doc.containsKey(key))
     return false;
   if (!doc[key].is<int>())
@@ -73,7 +73,7 @@ bool ConfigFileJSON::tget(const char* key, int* target)
 
 bool ConfigFileJSON::tget(const char* key, float* target)
 {
-  Serial.printf("float\n");
+  // Serial.printf("float\n");
   if (!doc.containsKey(key))
     return false;
   if (!doc[key].is<float>())
@@ -84,12 +84,34 @@ bool ConfigFileJSON::tget(const char* key, float* target)
 
 bool ConfigFileJSON::tget(const char* key, char* target)
 {
-  Serial.printf("string\n");
+  // Serial.printf("string\n");
   if (!doc.containsKey(key))
     return false;
   if (!doc[key].is<char*>())
     return false;
   strcpy(target, doc[key]);
+  return true;
+}
+
+bool ConfigFileJSON::tget(const char* key, long unsigned int* target)
+{
+  // Serial.printf("long unsigned int\n");
+  if (!doc.containsKey(key))
+    return false;
+  if (!doc[key].is<long unsigned int>())
+    return false;
+  *target = doc[key];
+  return true;
+}
+
+bool ConfigFileJSON::tget(const char* key, long int* target)
+{
+  // Serial.printf("long int\n");
+  if (!doc.containsKey(key))
+    return false;
+  if (!doc[key].is<long int>())
+    return false;
+  *target = doc[key];
   return true;
 }
 
