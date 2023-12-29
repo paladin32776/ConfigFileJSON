@@ -53,6 +53,14 @@ class ConfigFileJSON
     ConfigFileJSON(const char _filename[]);
 
     // Template functions to write a variable number of input parameters as JSON object:
+    // Template functions to write a variable number of input parameters as JSON object:
+    template<typename... Args>
+    bool set_nowrite(Args... args)
+    {
+        assembleJSON(args...);
+        return true;
+    }
+
     template<typename... Args>
     bool set(Args... args)
     {
