@@ -10,6 +10,8 @@ class ConfigFileJSON
   private:
     // File name storage:
     char filename[32];
+    // Indication about valid file:
+    bool valid_file = false;
     // JSON storage for data
     DynamicJsonDocument doc;
     // Template functions to assemble JSON object from variable number of input parameters:
@@ -79,6 +81,7 @@ class ConfigFileJSON
     bool clear();
     bool remove(const char key[]);
     void dump();
+    bool is_valid_file();
 };
 
 #endif // CONFIGFILEJSON_H

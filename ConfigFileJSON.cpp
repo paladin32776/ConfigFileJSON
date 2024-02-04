@@ -12,9 +12,10 @@ ConfigFileJSON::ConfigFileJSON(const char _filename[]): doc(1024)
       {
         deserializeJson(doc, file);
         file.close();
+        valid_file = true;
       }
       else
-        Serial.printf("[ERROR] File open failed.\n");
+        Serial.printf("[ERROR] File open failed. \n");
     }
     else
         Serial.printf("[ERROR] File open failed.\n");
@@ -33,6 +34,7 @@ bool ConfigFileJSON::write_file()
     {
       serializeJson(doc, file);
       file.close();
+      valid_file = true;
     }
     else
     {
@@ -133,4 +135,9 @@ void ConfigFileJSON::dump()
 {
   serializeJson(doc, Serial);
   Serial.printf("\n");
+}
+
+bool ConfigFileJSON::is_valid_file()
+{
+  return valid_file;
 }
