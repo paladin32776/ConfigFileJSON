@@ -89,7 +89,7 @@ bool ConfigFileJSON::tget(const char* key, char* target)
   // Serial.printf("string\n");
   if (!doc.containsKey(key))
     return false;
-  if (!doc[key].is<char*>())
+  if (!doc[key].is<const char*>())
     return false;
   strcpy(target, doc[key]);
   return true;
